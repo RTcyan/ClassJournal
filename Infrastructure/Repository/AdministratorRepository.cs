@@ -27,13 +27,17 @@ public class AdministratorRepository
 	// Добавление администратора
 	public Administrator Add(Administrator administrator)
 	{
-		return _context.Administrators.Add(administrator).Entity;
+		Administrator newAdministrator = _context.Administrators.Add(administrator).Entity;
+		_context.SaveChanges();
+
+        return newAdministrator;
 	}
 
 	// Удаление администратора
 	public void Delete(Administrator administrator)
 	{
 		_context.Administrators.Remove(administrator);
+		_context.SaveChanges();
 	}
 }
 

@@ -28,7 +28,10 @@ public class CabinetRepository
 	// Обновление информации о кабинете
 	public Cabinet Update(Cabinet cabinet)
 	{
-		return _context.Cabinets.Update(cabinet).Entity;
+		Cabinet newCabinet = _context.Cabinets.Update(cabinet).Entity;
+		_context.SaveChanges();
+
+        return newCabinet;
 	}
 
 	// Получение по ID

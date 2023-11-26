@@ -18,7 +18,7 @@ namespace Infrastructure.Migrations
                 name: "Administrators",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "uuid_generate_v4()"),
                     FullName = table.Column<string>(type: "text", nullable: false),
                     Birthday = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     PersonalLifeNumber = table.Column<int>(type: "integer", nullable: false),
@@ -33,7 +33,7 @@ namespace Infrastructure.Migrations
                 name: "CabinetTypes",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "uuid_generate_v4()"),
                     Name = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
@@ -45,7 +45,7 @@ namespace Infrastructure.Migrations
                 name: "Disciplines",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "uuid_generate_v4()"),
                     Name = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
@@ -57,19 +57,19 @@ namespace Infrastructure.Migrations
                 name: "GradeTypes",
                 columns: table => new
                 {
-                    id = table.Column<Guid>(type: "uuid", nullable: false),
-                    name = table.Column<string>(type: "text", nullable: false)
+                    Id = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "uuid_generate_v4()"),
+                    Name = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_GradeTypes", x => x.id);
+                    table.PrimaryKey("PK_GradeTypes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Cabinets",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "uuid_generate_v4()"),
                     Number = table.Column<string>(type: "text", nullable: false),
                     PlaceCount = table.Column<int>(type: "integer", nullable: false),
                     CabinetTypeId = table.Column<Guid>(type: "uuid", nullable: false)
@@ -89,7 +89,7 @@ namespace Infrastructure.Migrations
                 name: "Teachers",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "uuid_generate_v4()"),
                     FullName = table.Column<string>(type: "text", nullable: false),
                     Birthday = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DisciplineId = table.Column<Guid>(type: "uuid", nullable: false),
@@ -111,19 +111,19 @@ namespace Infrastructure.Migrations
                 name: "Grades",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "uuid_generate_v4()"),
                     Name = table.Column<string>(type: "text", nullable: false),
-                    GradeTypeid = table.Column<Guid>(type: "uuid", nullable: false),
+                    GradeTypeId = table.Column<Guid>(type: "uuid", nullable: false),
                     GradeTeacherId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Grades", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Grades_GradeTypes_GradeTypeid",
-                        column: x => x.GradeTypeid,
+                        name: "FK_Grades_GradeTypes_GradeTypeId",
+                        column: x => x.GradeTypeId,
                         principalTable: "GradeTypes",
-                        principalColumn: "id",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Grades_Teachers_GradeTeacherId",
@@ -137,7 +137,7 @@ namespace Infrastructure.Migrations
                 name: "Schedules",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "uuid_generate_v4()"),
                     CabinetId = table.Column<Guid>(type: "uuid", nullable: false),
                     TeacherId = table.Column<Guid>(type: "uuid", nullable: false),
                     GradeId = table.Column<Guid>(type: "uuid", nullable: false),
@@ -170,7 +170,7 @@ namespace Infrastructure.Migrations
                 name: "Students",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "uuid_generate_v4()"),
                     GradeId = table.Column<Guid>(type: "uuid", nullable: false),
                     FullName = table.Column<string>(type: "text", nullable: false),
                     ParentsFullName = table.Column<string>(type: "text", nullable: false),
@@ -196,7 +196,7 @@ namespace Infrastructure.Migrations
                 name: "MarkLogs",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "uuid_generate_v4()"),
                     StudentId = table.Column<Guid>(type: "uuid", nullable: false),
                     ScheduleItemId = table.Column<Guid>(type: "uuid", nullable: false),
                     value = table.Column<int>(type: "integer", nullable: false)
@@ -229,9 +229,9 @@ namespace Infrastructure.Migrations
                 column: "GradeTeacherId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Grades_GradeTypeid",
+                name: "IX_Grades_GradeTypeId",
                 table: "Grades",
-                column: "GradeTypeid");
+                column: "GradeTypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MarkLogs_ScheduleItemId",

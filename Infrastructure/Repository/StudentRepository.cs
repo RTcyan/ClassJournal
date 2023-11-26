@@ -36,19 +36,26 @@ public class StudentRepository
 	// Добавление студента
 	public Student Add(Student student)
 	{
-		return _context.Students.Add(student).Entity;
+		Student newStudent = _context.Students.Add(student).Entity;
+		_context.SaveChanges();
+
+        return newStudent;
 	}
 
     // Удаление студента
     public void Delete(Student student)
 	{
 		_context.Students.Remove(student);
+		_context.SaveChanges();
 	}
 
 	// Обновление студента
 	public Student Update(Student student)
 	{
-		return _context.Students.Update(student).Entity;
+        Student newStudent = _context.Students.Update(student).Entity;
+        _context.SaveChanges();
+
+        return newStudent;
 	}
 }
 

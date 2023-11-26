@@ -48,19 +48,26 @@ public class MarkLogRepository
     // Добавление оценки
     public MarkLog Add(MarkLog markLog)
 	{
-		return _context.MarkLogs.Add(markLog).Entity;
+		MarkLog newMarkLog = _context.MarkLogs.Add(markLog).Entity;
+		_context.SaveChanges();
+
+        return newMarkLog;
 	}
 
     // Удаление оценки
     public void Delete(MarkLog markLog)
 	{
 		_context.MarkLogs.Remove(markLog);
+		_context.SaveChanges();
 	}
 
 	// Обновление оценки
 	public MarkLog Update(MarkLog markLog)
 	{
-		return _context.MarkLogs.Update(markLog).Entity;
+        MarkLog newMarkLog = _context.MarkLogs.Update(markLog).Entity;
+        _context.SaveChanges();
+
+        return newMarkLog;
 	}
 }
 

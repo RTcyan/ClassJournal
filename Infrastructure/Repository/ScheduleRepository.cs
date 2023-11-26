@@ -43,19 +43,26 @@ public class ScheduleRepository
 	// Добавление запись в расписание
 	public Schedule Add(Schedule schedule)
 	{
-		return _context.Schedules.Add(schedule).Entity;
+		Schedule newSchedule = _context.Schedules.Add(schedule).Entity;
+		_context.SaveChanges();
+
+        return newSchedule;
 	}
 
     // Удаление расписания
     public void Delete(Schedule schedule)
 	{
 		_context.Schedules.Remove(schedule);
+		_context.SaveChanges();
 	}
 
 	// Обновление расписания
 	public Schedule Update(Schedule schedule)
 	{
-		return _context.Schedules.Update(schedule).Entity;
+        Schedule newSchedule = _context.Schedules.Update(schedule).Entity;
+        _context.SaveChanges();
+
+        return newSchedule;
 	}
 }
 

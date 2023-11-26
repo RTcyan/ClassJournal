@@ -34,19 +34,26 @@ public class TeacherRepository
 	// Добавление учителя
 	public Teacher Add(Teacher teacher)
 	{
-		return _context.Teachers.Add(teacher).Entity;
+		Teacher newTeacher = _context.Teachers.Add(teacher).Entity;
+		_context.SaveChanges();
+
+        return newTeacher;
 	}
 
     // Удаление учителя
     public void Delete(Teacher teacher)
 	{
 		_context.Teachers.Remove(teacher);
+		_context.SaveChanges();
 	}
 
 	// Обновление учителя
 	public Teacher Update(Teacher teacher)
 	{
-		return _context.Teachers.Update(teacher).Entity;
+        Teacher newTeacher = _context.Teachers.Update(teacher).Entity;
+        _context.SaveChanges();
+
+        return newTeacher;
 	}
 }
 

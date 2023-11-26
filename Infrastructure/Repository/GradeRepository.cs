@@ -34,19 +34,26 @@ public class GradeRepository
 	// Добавление класса
 	public Grade Add(Grade grade)
 	{
-		return _context.Grades.Add(grade).Entity;
+		Grade newGrade = _context.Grades.Add(grade).Entity;
+		_context.SaveChanges();
+
+        return newGrade;
 	}
 
     // Удаление класса
     public void Delete(Grade grade)
 	{
 		_context.Grades.Remove(grade);
+		_context.SaveChanges();
 	}
 
 	// Обновление класса
 	public Grade Update(Grade grade)
 	{
-		return _context.Grades.Update(grade).Entity;
+        Grade newGrade = _context.Grades.Update(grade).Entity;
+		_context.SaveChanges();
+
+        return newGrade;
 	}
 }
 
