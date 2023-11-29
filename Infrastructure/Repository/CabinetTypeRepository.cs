@@ -1,4 +1,5 @@
 ﻿using Domain.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repository;
 public class CabinetTypeRepository
@@ -23,6 +24,11 @@ public class CabinetTypeRepository
 	{
 		return _context.CabinetTypes.OrderBy(it => it.Name).ToList();
 	}
+
+    public CabinetType? getById(Guid guid)
+    {
+        return _context.CabinetTypes.Where(it => it.Id == guid).FirstOrDefault();
+    }
 }
 
 

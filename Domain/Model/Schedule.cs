@@ -5,6 +5,7 @@ public class Schedule
 	public Cabinet Cabinet { get; set; } = null!;
 	public Teacher Teacher { get; set; } = null!;
 	public Grade Grade { get; set; } = null!;
+	public Discipline Discipline { get; set; } = null!;
 	public DateTime DateTime { get; set; }
 }
 

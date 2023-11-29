@@ -1,4 +1,5 @@
 ﻿using Domain.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repository;
 public class DisciplineRepository
@@ -23,6 +24,11 @@ public class DisciplineRepository
 	{
 		return _context.Disciplines.OrderBy(it => it.Name).ToList();
 	}
+
+    public Discipline? getById(Guid guid)
+    {
+        return _context.Disciplines.Where(it => it.Id == guid).FirstOrDefault();
+    }
 }
 
 

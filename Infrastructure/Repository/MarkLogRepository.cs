@@ -32,17 +32,17 @@ public class MarkLogRepository
 			.Include(it => it.ScheduleItem)
 			.Include(it => it.Student)
 			.Where(it => it.Id == id)
-			.FirstOrDefault();
+            .FirstOrDefault();
 	}
 
-    // Получение оценки по Id ученику
-    public MarkLog? getByStudentId(Guid id)
+    // Получение оценок по Id ученику
+    public List<MarkLog> getByStudentId(Guid id)
     {
-        return _context.MarkLogs
+		return _context.MarkLogs
 			.Include(it => it.ScheduleItem)
 			.Include(it => it.Student)
 			.Where(it => it.Student.Id == id)
-			.FirstOrDefault();
+			.ToList();
     }
 
     // Добавление оценки
@@ -64,10 +64,17 @@ public class MarkLogRepository
 	// Обновление оценки
 	public MarkLog Update(MarkLog markLog)
 	{
-        MarkLog newMarkLog = _context.MarkLogs.Update(markLog).Entity;
+        MarkLog? oldMarkLog = getById(markLog.Id);
+        if (oldMarkLog == null)
+        {
+            throw new Exception("NotFound");
+        }
+        oldMarkLog.ScheduleItem = markLog.ScheduleItem;
+        oldMarkLog.Student = markLog.Student;
+        oldMarkLog.value = markLog.value;
         _context.SaveChanges();
 
-        return newMarkLog;
+        return oldMarkLog;
 	}
 }
 

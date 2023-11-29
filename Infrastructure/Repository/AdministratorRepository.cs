@@ -1,4 +1,5 @@
 ﻿using Domain.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repository;
 public class AdministratorRepository

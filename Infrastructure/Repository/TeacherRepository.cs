@@ -50,10 +50,19 @@ public class TeacherRepository
 	// Обновление учителя
 	public Teacher Update(Teacher teacher)
 	{
-        Teacher newTeacher = _context.Teachers.Update(teacher).Entity;
+        Teacher? oldTeacher = getById(teacher.Id);
+        if (oldTeacher == null)
+        {
+            throw new Exception("NotFound");
+        }
+        oldTeacher.FullName = teacher.FullName;
+        oldTeacher.PersonalLifeNumber = teacher.PersonalLifeNumber;
+        oldTeacher.PhoneNumber = teacher.PhoneNumber;
+        oldTeacher.Birthday = teacher.Birthday;
+        oldTeacher.Discipline = teacher.Discipline;
         _context.SaveChanges();
 
-        return newTeacher;
+        return oldTeacher;
 	}
 }
 

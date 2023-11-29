@@ -33,7 +33,7 @@ public class GradeRepositoryTest
                 PersonalLifeNumber = 123,
                 PhoneNumber = "Test",
             },
-            GradeType = new GradeType
+            GradeType = new CabinetType
             {
                 Name = "Test",
             },

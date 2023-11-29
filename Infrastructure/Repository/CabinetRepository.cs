@@ -1,4 +1,5 @@
-﻿using Domain.Model;
+﻿using System.Diagnostics;
+using Domain.Model;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repository;
@@ -25,22 +26,29 @@ public class CabinetRepository
 		return _context.Cabinets.ToList();
 	}
 
-	// Обновление информации о кабинете
-	public Cabinet Update(Cabinet cabinet)
-	{
-		Cabinet newCabinet = _context.Cabinets.Update(cabinet).Entity;
-		_context.SaveChanges();
-
-        return newCabinet;
-	}
-
 	// Получение по ID
-	public Cabinet? GetByid(Guid id)
+	public Cabinet? getById(Guid id)
 	{
 		return _context.Cabinets.Where(it => it.Id == id)
 			.Include(c => c.CabinetType)
-			.FirstOrDefault();
+            .FirstOrDefault();
 	}
+
+    // Обновление информации о кабинете
+    public Cabinet Update(Cabinet cabinet)
+    {
+        Cabinet? oldCabinet = this.getById(cabinet.Id);
+        if (oldCabinet == null)
+        {
+            throw new Exception("NotFound");
+        }
+        oldCabinet.CabinetType = cabinet.CabinetType;
+        oldCabinet.Number = cabinet.Number;
+        oldCabinet.PlaceCount = cabinet.PlaceCount;
+        _context.SaveChanges();
+
+        return oldCabinet;
+    }
 }
 
 

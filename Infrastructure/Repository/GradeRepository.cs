@@ -50,10 +50,17 @@ public class GradeRepository
 	// Обновление класса
 	public Grade Update(Grade grade)
 	{
-        Grade newGrade = _context.Grades.Update(grade).Entity;
+		Grade? oldGrade = this.getById(grade.Id);
+		if (oldGrade == null)
+		{
+			throw new Exception("NotFound");
+		}
+		oldGrade.GradeTeacher = grade.GradeTeacher;
+		oldGrade.GradeType = grade.GradeType;
+		oldGrade.Name = grade.Name;
 		_context.SaveChanges();
 
-        return newGrade;
+        return oldGrade;
 	}
 }
 

@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20231123203920_Init")]
+    [Migration("20231129204102_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -188,6 +188,9 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime>("DateTime")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<Guid>("DisciplineId")
+                        .HasColumnType("uuid");
+
                     b.Property<Guid>("GradeId")
                         .HasColumnType("uuid");
 
@@ -197,6 +200,8 @@ namespace Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CabinetId");
+
+                    b.HasIndex("DisciplineId");
 
                     b.HasIndex("GradeId");
 
@@ -340,6 +345,12 @@ namespace Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Domain.Model.Discipline", "Discipline")
+                        .WithMany()
+                        .HasForeignKey("DisciplineId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Domain.Model.Grade", "Grade")
                         .WithMany()
                         .HasForeignKey("GradeId")
@@ -353,6 +364,8 @@ namespace Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Cabinet");
+
+                    b.Navigation("Discipline");
 
                     b.Navigation("Grade");
 

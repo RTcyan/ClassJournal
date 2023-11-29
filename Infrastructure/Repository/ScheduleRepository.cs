@@ -26,7 +26,7 @@ public class ScheduleRepository
 			.Include(it => it.Cabinet)
 			.Include(it => it.Grade)
 			.Include(it => it.Teacher)
-			.ToList();
+            .ToList();
     }
 
     // Получение записи в рассписании по Id
@@ -37,7 +37,7 @@ public class ScheduleRepository
             .Include(it => it.Grade)
             .Include(it => it.Teacher)
 			.Where(it => it.Id == id)
-			.FirstOrDefault();
+            .FirstOrDefault();
 	}
 
 	// Добавление запись в расписание
@@ -59,10 +59,18 @@ public class ScheduleRepository
 	// Обновление расписания
 	public Schedule Update(Schedule schedule)
 	{
-        Schedule newSchedule = _context.Schedules.Update(schedule).Entity;
+        Schedule? oldSchedule = getById(schedule.Id);
+        if (oldSchedule == null)
+        {
+            throw new Exception("NotFound");
+        }
+        oldSchedule.Cabinet = schedule.Cabinet;
+        oldSchedule.DateTime = schedule.DateTime;
+        oldSchedule.Grade = schedule.Grade;
+        oldSchedule.Teacher = schedule.Teacher;
         _context.SaveChanges();
 
-        return newSchedule;
+        return oldSchedule;
 	}
 }
 

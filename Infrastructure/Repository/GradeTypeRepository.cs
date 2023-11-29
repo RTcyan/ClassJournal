@@ -23,6 +23,11 @@ public class GradeTypeRepository
 	{
 		return _context.GradeTypes.ToList();
 	}
+
+	public GradeType? getById(Guid guid)
+	{
+        return _context.GradeTypes.Where(it => it.Id == guid).FirstOrDefault();
+    }
 }
 
 
