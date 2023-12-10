@@ -35,7 +35,7 @@ public class TeacherController : ControllerBase
 			{
 				Id = teacher.Id,
 				Birthday = teacher.Birthday,
-				DisciplineId = teacher.Discipline.Id,
+				Discipline = teacher.Discipline.Name,
 				FullName = teacher.FullName,
 				PersonalLifeNumber = teacher.PersonalLifeNumber,
 				PhoneNumber = teacher.PhoneNumber,
@@ -57,7 +57,7 @@ public class TeacherController : ControllerBase
 		{
             Id = teacher.Id,
             Birthday = teacher.Birthday,
-            DisciplineId = teacher.Discipline.Id,
+            Discipline = teacher.Discipline.Name,
             FullName = teacher.FullName,
             PersonalLifeNumber = teacher.PersonalLifeNumber,
             PhoneNumber = teacher.PhoneNumber,
@@ -67,7 +67,7 @@ public class TeacherController : ControllerBase
 	[HttpPost]
 	public IActionResult create(TeacherCreateDTO teacherDTO)
 	{
-		Discipline? discipline = _disciplineRepository.getById(teacherDTO.disciplineId);
+		Discipline? discipline = _disciplineRepository.getById(teacherDTO.DisciplineId);
 		if (discipline == null)
 		{
 			return NotFound("Discipline is not found");
@@ -85,7 +85,7 @@ public class TeacherController : ControllerBase
 		{
             Id = newTeacher.Id,
             Birthday = newTeacher.Birthday,
-            DisciplineId = newTeacher.Discipline.Id,
+            Discipline = newTeacher.Discipline.Name,
             FullName = newTeacher.FullName,
             PersonalLifeNumber = newTeacher.PersonalLifeNumber,
             PhoneNumber = newTeacher.PhoneNumber,
@@ -93,7 +93,7 @@ public class TeacherController : ControllerBase
 	}
 
     [HttpPut]
-    public IActionResult update(TeacherDTO teacherDTO)
+    public IActionResult update(TeacherUpdateDTO teacherDTO)
     {
 		Teacher? oldTeacher = _teacherRepository.getById(teacherDTO.Id);
 		if (oldTeacher == null)
@@ -120,7 +120,7 @@ public class TeacherController : ControllerBase
         {
             Id = updatedTeacher.Id,
             Birthday = updatedTeacher.Birthday,
-            DisciplineId = updatedTeacher.Discipline.Id,
+            Discipline = updatedTeacher.Discipline.Name,
             FullName = updatedTeacher.FullName,
             PersonalLifeNumber = updatedTeacher.PersonalLifeNumber,
             PhoneNumber = updatedTeacher.PhoneNumber,

@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc;
 using Infrastructure;
 using Infrastructure.Repository;
 using Domain.Model;
@@ -38,8 +37,8 @@ public class GradeController : ControllerBase
 			{
 				Id = grade.Id,
 				Name = grade.Name,
-				GradeTeacherId = grade.GradeTeacher.Id,
-				GradeTypeId = grade.GradeType.Id,
+				GradeTeacher = grade.GradeTeacher.FullName,
+				GradeType = grade.GradeType.Name,
 			});
 		}
 
@@ -58,8 +57,8 @@ public class GradeController : ControllerBase
 		{
             Id = grade.Id,
             Name = grade.Name,
-            GradeTeacherId = grade.GradeTeacher.Id,
-            GradeTypeId = grade.GradeType.Id,
+            GradeTeacher = grade.GradeTeacher.FullName,
+            GradeType = grade.GradeType.Name,
         });
 	}
 
@@ -85,15 +84,15 @@ public class GradeController : ControllerBase
         Grade newGrade = _gradeRepository.Add(grade);
 		return Ok(new GradeDTO
 		{
-			GradeTeacherId = newGrade.GradeTeacher.Id,
+			GradeTeacher = newGrade.GradeTeacher.FullName,
 			Id = newGrade.Id,
-			GradeTypeId = newGrade.GradeType.Id,
+			GradeType = newGrade.GradeType.Name,
 			Name = newGrade.Name,
 		});
 	}
 
     [HttpPut]
-    public IActionResult update(GradeDTO gradeDTO)
+    public IActionResult update(GradeUpdateDTO gradeDTO)
     {
 		Grade? oldGrade = _gradeRepository.getById(gradeDTO.Id);
 		if (oldGrade == null)
@@ -122,9 +121,9 @@ public class GradeController : ControllerBase
         Grade updatedGrade = _gradeRepository.Update(newGrade);
         return Ok(new GradeDTO
         {
-            GradeTeacherId = updatedGrade.GradeTeacher.Id,
+            GradeTeacher = updatedGrade.GradeTeacher.FullName,
             Id = updatedGrade.Id,
-            GradeTypeId = updatedGrade.GradeType.Id,
+            GradeType = updatedGrade.GradeType.Name,
             Name = updatedGrade.Name,
         });
     }

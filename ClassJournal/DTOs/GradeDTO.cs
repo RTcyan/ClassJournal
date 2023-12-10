@@ -1,13 +1,11 @@
-﻿using System;
-using Domain.Model;
-
-namespace API.DTOs
+﻿namespace API.DTOs
 {
-	public class GradeCreateDTO
+	public class GradeDTO
 	{
+        public Guid Id { get; set; }
         public string Name { get; set; } = string.Empty;
-        public Guid GradeTypeId { get; set; }
-        public Guid GradeTeacherId { get; set; }
+        public string GradeType { get; set; } = string.Empty;
+        public string GradeTeacher { get; set; } = string.Empty;
     }
 }
 

@@ -3,12 +3,12 @@ using Domain.Model;
 
 namespace API.DTOs
 {
-	public class TeacherDTO
+	public class TeacherUpdateDTO
 	{
         public Guid Id { get; set; }
         public string FullName { get; set; } = string.Empty;
         public DateTime Birthday { get; set; }
-        public string Discipline { get; set; } = string.Empty;
+        public Guid DisciplineId { get; set; }
         public int PersonalLifeNumber { get; set; }
         public string PhoneNumber { get; set; } = string.Empty;
     }

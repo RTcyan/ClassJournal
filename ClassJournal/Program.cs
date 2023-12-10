@@ -13,6 +13,9 @@ builder.Services.AddDbContext<Infrastructure.Context>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("PostgreConnectionString")));
 
 var app = builder.Build();
+
+app.UsePathBase(new PathString("/api"));
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
