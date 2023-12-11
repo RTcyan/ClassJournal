@@ -142,5 +142,3 @@ public class GradeController : ControllerBase
         return Ok();
     }
 }
-
-
