@@ -26,6 +26,7 @@ public class ScheduleRepository
 			.Include(it => it.Cabinet)
 			.Include(it => it.Grade)
 			.Include(it => it.Teacher)
+				.ThenInclude(it => it.Discipline)
             .ToList();
     }
 

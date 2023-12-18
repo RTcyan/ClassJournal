@@ -141,7 +141,6 @@ namespace Infrastructure.Migrations
                     CabinetId = table.Column<Guid>(type: "uuid", nullable: false),
                     TeacherId = table.Column<Guid>(type: "uuid", nullable: false),
                     GradeId = table.Column<Guid>(type: "uuid", nullable: false),
-                    DisciplineId = table.Column<Guid>(type: "uuid", nullable: false),
                     DateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
@@ -151,12 +150,6 @@ namespace Infrastructure.Migrations
                         name: "FK_Schedules_Cabinets_CabinetId",
                         column: x => x.CabinetId,
                         principalTable: "Cabinets",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Schedules_Disciplines_DisciplineId",
-                        column: x => x.DisciplineId,
-                        principalTable: "Disciplines",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -254,11 +247,6 @@ namespace Infrastructure.Migrations
                 name: "IX_Schedules_CabinetId",
                 table: "Schedules",
                 column: "CabinetId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Schedules_DisciplineId",
-                table: "Schedules",
-                column: "DisciplineId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Schedules_GradeId",

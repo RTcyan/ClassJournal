@@ -30,12 +30,12 @@ public class CabinetController : ControllerBase
 		List<Cabinet> cabinetes = _cabinetRepository.getAll();
 
 		foreach (Cabinet cabinet in cabinetes)
-		{
+        {
 			cabinetDTOs.Add(new CabinetDTO
 			{
 				Id = cabinet.Id,
 				Number = cabinet.Number,
-				CabinetTypeId = cabinet.CabinetType.Id,
+				CabinetType = cabinet.CabinetType.Name,
 				PlaceCount = cabinet.PlaceCount,
 			});
 		}
@@ -55,14 +55,14 @@ public class CabinetController : ControllerBase
 		{
             Id = cabinet.Id,
             Number = cabinet.Number,
-            CabinetTypeId = cabinet.CabinetType.Id,
+            CabinetType = cabinet.CabinetType.Name,
             PlaceCount = cabinet.PlaceCount,
         });
 	}
 
 
     [HttpPut]
-    public IActionResult update(CabinetDTO cabinetDTO)
+    public IActionResult update(CabinetUpdateDTO cabinetDTO)
     {
 		Cabinet? oldCabinet = _cabinetRepository.getById(cabinetDTO.Id);
 		if (oldCabinet == null)
@@ -88,7 +88,7 @@ public class CabinetController : ControllerBase
         {
             Id = updatedCabinet.Id,
             Number = updatedCabinet.Number,
-            CabinetTypeId = updatedCabinet.CabinetType.Id,
+            CabinetType = updatedCabinet.CabinetType.Name,
             PlaceCount = updatedCabinet.PlaceCount,
         });
     }

@@ -35,11 +35,15 @@ public class StudentController : ControllerBase
 			{
 				Id = student.Id,
 				Birthday = student.Birthday,
-				GradeId = student.Grade.Id,
+				Grade = student.Grade.Name,
 				FullName = student.FullName,
 				PersonalLifeNumber = student.PersonalLifeNumber,
 				PhoneNumber = student.PhoneNumber,
-			});
+                Address = student.Address,
+                ParentsFullName = student.ParentsFullName,
+                ParentsPhoneNumber = student.ParentsPhoneNumber,
+                Sex = student.Sex,
+            });
 		}
 
 		return Ok(studentDTOs);
@@ -57,10 +61,14 @@ public class StudentController : ControllerBase
 		{
             Id = student.Id,
             Birthday = student.Birthday,
-            GradeId = student.Grade.Id,
+            Grade = student.Grade.Name,
             FullName = student.FullName,
             PersonalLifeNumber = student.PersonalLifeNumber,
             PhoneNumber = student.PhoneNumber,
+            Address = student.Address,
+            ParentsFullName = student.ParentsFullName,
+            ParentsPhoneNumber = student.ParentsPhoneNumber,
+            Sex = student.Sex,
         });
 	}
 
@@ -79,21 +87,29 @@ public class StudentController : ControllerBase
 			Birthday = studentDTO.Birthday,
 			FullName = studentDTO.FullName,
 			PersonalLifeNumber = studentDTO.PersonalLifeNumber,
+			Address = studentDTO.Address,
+			Sex = studentDTO.Sex,
+			ParentsPhoneNumber = studentDTO.ParentsPhoneNumber,
+			ParentsFullName = studentDTO.ParentsFullName,
 		};
         Student newStudent = _studentRepository.Add(student);
 		return Ok(new StudentDTO
 		{
             Id = newStudent.Id,
             Birthday = newStudent.Birthday,
-            GradeId = newStudent.Grade.Id,
+            Grade = student.Grade.Name,
             FullName = newStudent.FullName,
             PersonalLifeNumber = newStudent.PersonalLifeNumber,
             PhoneNumber = newStudent.PhoneNumber,
+            Address = newStudent.Address,
+            ParentsFullName = newStudent.ParentsFullName,
+            ParentsPhoneNumber = newStudent.ParentsPhoneNumber,
+            Sex = newStudent.Sex,
         });
 	}
 
     [HttpPut]
-    public IActionResult update(StudentDTO studentDTO)
+    public IActionResult update(StudentUpdateDTO studentDTO)
     {
 		Student? oldStudent = _studentRepository.getById(studentDTO.Id);
 		if (oldStudent == null)
@@ -120,10 +136,14 @@ public class StudentController : ControllerBase
         {
             Id = updatedStudent.Id,
             Birthday = updatedStudent.Birthday,
-            GradeId = updatedStudent.Grade.Id,
+            Grade = updatedStudent.Grade.Name,
             FullName = updatedStudent.FullName,
             PersonalLifeNumber = updatedStudent.PersonalLifeNumber,
             PhoneNumber = updatedStudent.PhoneNumber,
+			Address = updatedStudent.Address,
+			ParentsFullName = updatedStudent.ParentsFullName,
+			ParentsPhoneNumber = updatedStudent.ParentsPhoneNumber,
+			Sex = updatedStudent.Sex,
         });
     }
 

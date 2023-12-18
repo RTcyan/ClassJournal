@@ -3,10 +3,10 @@ using Domain.Model;
 
 namespace API.DTOs
 {
-	public class StudentDTO
+	public class StudentUpdateDTO
 	{
         public Guid Id { get; set; }
-        public string Grade { get; set; } = string.Empty;
+        public Guid GradeId { get; set; }
         public string FullName { get; set; } = string.Empty;
         public string ParentsFullName { get; set; } = string.Empty;
         public DateTime Birthday { get; set; }

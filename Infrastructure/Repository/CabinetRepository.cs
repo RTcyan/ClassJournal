@@ -23,7 +23,7 @@ public class CabinetRepository
 	// Получение всех кабинетов
 	public List<Cabinet> getAll()
 	{
-		return _context.Cabinets.ToList();
+		return _context.Cabinets.Include(it => it.CabinetType).ToList();
 	}
 
 	// Получение по ID

@@ -40,11 +40,11 @@ public class ScheduleController : ControllerBase
 			scheduleDTOs.Add(new ScheduleDTO
 			{
 				Id = schedule.Id,
-				CabinetId = schedule.Cabinet.Id,
+				Cabinet = schedule.Cabinet.Number,
 				DateTime = schedule.DateTime,
-				GradeId = schedule.Grade.Id,
-				TeacherId = schedule.Teacher.Id,
-                DisciplineId = schedule.Discipline.Id,
+				Grade = schedule.Grade.Name,
+				Teacher = schedule.Teacher.FullName,
+                Discipline = schedule.Teacher.Discipline.Name,
 			});
 		}
 
@@ -62,11 +62,11 @@ public class ScheduleController : ControllerBase
         return Ok(new ScheduleDTO
 		{
             Id = schedule.Id,
-            CabinetId = schedule.Cabinet.Id,
+            Cabinet = schedule.Cabinet.Number,
             DateTime = schedule.DateTime,
-            GradeId = schedule.Grade.Id,
-            TeacherId = schedule.Teacher.Id,
-            DisciplineId = schedule.Discipline.Id,
+            Grade = schedule.Grade.Name,
+            Teacher = schedule.Teacher.FullName,
+            Discipline = schedule.Teacher.Discipline.Name,
         });
 	}
 
@@ -88,11 +88,6 @@ public class ScheduleController : ControllerBase
         {
             return NotFound("Grade is not found");
         }
-        Discipline? discipline = _disciplineRepository.getById(scheduleDTO.DisciplineId);
-        if (discipline == null)
-        {
-            return NotFound("Discipline is not found");
-        }
 
         Schedule schedule = new Schedule
         {
@@ -100,22 +95,21 @@ public class ScheduleController : ControllerBase
             Grade = grade,
             Cabinet = cabinet,
             DateTime = scheduleDTO.DateTime,
-            Discipline = discipline,
 		};
         Schedule newSchedule = _scheduleRepository.Add(schedule);
 		return Ok(new ScheduleDTO
 		{
             Id = newSchedule.Id,
-            CabinetId = newSchedule.Cabinet.Id,
+            Cabinet = newSchedule.Cabinet.Number,
             DateTime = newSchedule.DateTime,
-            GradeId = newSchedule.Grade.Id,
-            TeacherId = newSchedule.Teacher.Id,
-            DisciplineId = schedule.Discipline.Id,
+            Grade = newSchedule.Grade.Name,
+            Teacher = newSchedule.Teacher.FullName,
+            Discipline = newSchedule.Teacher.Discipline.Name,
         });
 	}
 
     [HttpPut]
-    public IActionResult update(ScheduleDTO scheduleDTO)
+    public IActionResult update(ScheduleUpdateDTO scheduleDTO)
     {
         Schedule? oldSchedule = _scheduleRepository.getById(scheduleDTO.Id);
         if (oldSchedule == null)
@@ -133,11 +127,6 @@ public class ScheduleController : ControllerBase
         {
             return NotFound("Teacher is not found");
         }
-        Discipline? discipline = _disciplineRepository.getById(scheduleDTO.DisciplineId);
-        if (discipline == null)
-        {
-            return NotFound("Discipline type is not found");
-        }
         Cabinet? cabinet = _cabinetRepository.getById(scheduleDTO.CabinetId);
         if (cabinet == null)
         {
@@ -147,7 +136,6 @@ public class ScheduleController : ControllerBase
         Schedule newSchedule = new Schedule
         {
 			Id = scheduleDTO.Id,
-            Discipline = discipline,
             DateTime = scheduleDTO.DateTime,
             Cabinet = cabinet,
             Grade = grade,
@@ -157,10 +145,11 @@ public class ScheduleController : ControllerBase
         return Ok(new ScheduleDTO
         {
             Id = updatedSchedule.Id,
-            CabinetId = updatedSchedule.Cabinet.Id,
+            Cabinet = updatedSchedule.Cabinet.Number,
             DateTime = updatedSchedule.DateTime,
-            GradeId = updatedSchedule.Grade.Id,
-            TeacherId = updatedSchedule.Teacher.Id,
+            Grade = updatedSchedule.Grade.Name,
+            Teacher = updatedSchedule.Teacher.FullName,
+            Discipline = updatedSchedule.Teacher.Discipline.Name,
         });
     }
 

@@ -22,15 +22,30 @@ public class MarkLogRepository
     // Получение всех оценок
     public List<MarkLog> getAll()
     {
-        return _context.MarkLogs.Include(it => it.ScheduleItem).ToList();
+        return _context.MarkLogs
+			.Include(it => it.ScheduleItem)
+				.ThenInclude(it => it.Cabinet)
+			.Include(it => it.ScheduleItem)
+				.ThenInclude(it => it.Grade)
+			.Include(it => it.ScheduleItem)
+                .ThenInclude(it => it.Teacher)
+                    .ThenInclude(it => it.Discipline)
+            .Include(it => it.Student)
+			.ToList();
     }
 
     // Получение оценки по Id
     public MarkLog? getById(Guid id)
 	{
 		return _context.MarkLogs
-			.Include(it => it.ScheduleItem)
-			.Include(it => it.Student)
+             .Include(it => it.ScheduleItem)
+                .ThenInclude(it => it.Cabinet)
+            .Include(it => it.ScheduleItem)
+                .ThenInclude(it => it.Grade)
+            .Include(it => it.ScheduleItem)
+                .ThenInclude(it => it.Teacher)
+                    .ThenInclude(it => it.Discipline)
+            .Include(it => it.Student)
 			.Where(it => it.Id == id)
             .FirstOrDefault();
 	}
@@ -39,9 +54,14 @@ public class MarkLogRepository
     public List<MarkLog> getByStudentId(Guid id)
     {
 		return _context.MarkLogs
-			.Include(it => it.ScheduleItem)
-			.Include(it => it.Student)
-			.Where(it => it.Student.Id == id)
+            .Include(it => it.ScheduleItem)
+                .ThenInclude(it => it.Cabinet)
+            .Include(it => it.ScheduleItem)
+                .ThenInclude(it => it.Grade)
+            .Include(it => it.ScheduleItem)
+                .ThenInclude(it => it.Teacher)
+                    .ThenInclude(it => it.Discipline)
+            .Where(it => it.Student.Id == id)
 			.ToList();
     }
 
@@ -51,7 +71,7 @@ public class MarkLogRepository
 		MarkLog newMarkLog = _context.MarkLogs.Add(markLog).Entity;
 		_context.SaveChanges();
 
-        return newMarkLog;
+        return getById(newMarkLog.Id)!;
 	}
 
     // Удаление оценки

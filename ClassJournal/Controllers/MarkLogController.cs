@@ -36,8 +36,16 @@ public class MarkLogController : ControllerBase
 			markLogDTOs.Add(new MarkLogDTO
 			{
 				Id = markLog.Id,
-				ScheduleItemId = markLog.ScheduleItem.Id,
-                StudentId = markLog.Student.Id,
+				ScheduleItem = new ScheduleDTO
+                {
+                    Cabinet = markLog.ScheduleItem.Cabinet.Number,
+                    Discipline = markLog.ScheduleItem.Teacher.Discipline.Name,
+                    Teacher = markLog.ScheduleItem.Teacher.FullName,
+                    Grade = markLog.ScheduleItem.Grade.Name,
+                    DateTime = markLog.ScheduleItem.DateTime,
+                    Id = markLog.ScheduleItem.Id,
+                },
+                Student = markLog.Student.FullName,
                 value = markLog.value,
 			});
 		}
@@ -56,8 +64,16 @@ public class MarkLogController : ControllerBase
         return Ok(new MarkLogDTO
 		{
             Id = markLog.Id,
-            ScheduleItemId = markLog.ScheduleItem.Id,
-            StudentId = markLog.Student.Id,
+            ScheduleItem = new ScheduleDTO
+            {
+                Cabinet = markLog.ScheduleItem.Cabinet.Number,
+                Discipline = markLog.ScheduleItem.Teacher.Discipline.Name,
+                Teacher = markLog.ScheduleItem.Teacher.FullName,
+                Grade = markLog.ScheduleItem.Grade.Name,
+                DateTime = markLog.ScheduleItem.DateTime,
+                Id = markLog.ScheduleItem.Id,
+            },
+            Student = markLog.Student.FullName,
             value = markLog.value,
         });
 	}
@@ -74,8 +90,16 @@ public class MarkLogController : ControllerBase
             markLogDTOs.Add(new MarkLogDTO
             {
                 Id = markLog.Id,
-                ScheduleItemId = markLog.ScheduleItem.Id,
-                StudentId = markLog.Student.Id,
+                ScheduleItem = new ScheduleDTO
+                {
+                    Cabinet = markLog.ScheduleItem.Cabinet.Number,
+                    Discipline = markLog.ScheduleItem.Teacher.Discipline.Name,
+                    Teacher = markLog.ScheduleItem.Teacher.FullName,
+                    Grade = markLog.ScheduleItem.Grade.Name,
+                    DateTime = markLog.ScheduleItem.DateTime,
+                    Id = markLog.ScheduleItem.Id,
+                },
+                Student = markLog.Student.FullName,
                 value = markLog.value,
             });
         }
@@ -107,14 +131,22 @@ public class MarkLogController : ControllerBase
 		return Ok(new MarkLogDTO
 		{
             Id = newMarkLog.Id,
-            ScheduleItemId = newMarkLog.ScheduleItem.Id,
-            StudentId = newMarkLog.Student.Id,
+            ScheduleItem = new ScheduleDTO
+            {
+                Cabinet = newMarkLog.ScheduleItem.Cabinet.Number,
+                Discipline = newMarkLog.ScheduleItem.Teacher.Discipline.Name,
+                Teacher = newMarkLog.ScheduleItem.Teacher.FullName,
+                Grade = newMarkLog.ScheduleItem.Grade.Name,
+                DateTime = newMarkLog.ScheduleItem.DateTime,
+                Id = newMarkLog.ScheduleItem.Id,
+            },
+            Student = newMarkLog.Student.FullName,
             value = newMarkLog.value,
         });
 	}
 
     [HttpPut]
-    public IActionResult update(MarkLogDTO markLogDTO)
+    public IActionResult update(MarkLogUpdateDTO markLogDTO)
     {
         MarkLog? oldMarkLog = _markLogRepository.getById(markLogDTO.Id);
         if (oldMarkLog == null)
@@ -144,8 +176,16 @@ public class MarkLogController : ControllerBase
         return Ok(new MarkLogDTO
         {
             Id = updatedMarkLog.Id,
-            ScheduleItemId = updatedMarkLog.ScheduleItem.Id,
-            StudentId = updatedMarkLog.Student.Id,
+            ScheduleItem = new ScheduleDTO
+            {
+                Cabinet = updatedMarkLog.ScheduleItem.Cabinet.Number,
+                Discipline = updatedMarkLog.ScheduleItem.Teacher.Discipline.Name,
+                Teacher = updatedMarkLog.ScheduleItem.Teacher.FullName,
+                Grade = updatedMarkLog.ScheduleItem.Grade.Name,
+                DateTime = updatedMarkLog.ScheduleItem.DateTime,
+                Id = updatedMarkLog.ScheduleItem.Id,
+            },
+            Student = updatedMarkLog.Student.FullName,
             value = updatedMarkLog.value,
         });
     }
